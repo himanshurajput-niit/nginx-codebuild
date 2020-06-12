@@ -12,8 +12,8 @@ env:
   variables:
     IMAGE: "nginx
     IMAGE_TAG: "enginx"
+    
 phases:
-  
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
