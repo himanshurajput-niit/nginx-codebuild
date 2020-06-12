@@ -10,6 +10,7 @@
 version: 0.2
 env:
   variables:
+    IMAGE: "nginx
     IMAGE_TAG: "enginx"
 phases:
   
@@ -23,11 +24,10 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t $REPOSITORY_URI
-      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+      - docker build -t $IMAGE .
+      - docker tag $IMAGE:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
     commands:
-      - bash -c "if [ /"$CODEBUILD_BUILD_SUCCEEDING/" == /"0/" ]; then exit 1; fi"
       - echo Build stage successfully completed on `date`
       - echo Pushing the Docker image...
       - docker push $REPOSITORY_URI:$IMAGE_TAG
