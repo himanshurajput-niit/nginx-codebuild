@@ -12,12 +12,21 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker pull mailhog/mailhog
+      - docker pull wurstmeister/zookeeper
+      - docker pull wurstmeister/kafka
+      - docker pull mongo
       - docker tag mailhog/mailhog:latest 270809431272.dkr.ecr.us-east-2.amazonaws.com/mailhog/mailhog:latest
+      - docker tag wurstmeister/zookeeper:latest 270809431272.dkr.ecr.us-east-2.amazonaws.com/wurstmeister/zookeeper:latest
+      - docker tag wurstmeister/kafka:latest 270809431272.dkr.ecr.us-east-2.amazonaws.com/wurstmeister/kafka:latest
+      - docker tag mongo:latest 270809431272.dkr.ecr.us-east-2.amazonaws.com/mongo:latest
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker images...
       - docker push 270809431272.dkr.ecr.us-east-2.amazonaws.com/mailhog/mailhog:latest
+      - docker push 270809431272.dkr.ecr.us-east-2.amazonaws.com/wurstmeister/zookeeper:latest
+      - docker push 270809431272.dkr.ecr.us-east-2.amazonaws.com/wurstmeister/kafka:latest
+      - docker push 270809431272.dkr.ecr.us-east-2.amazonaws.com/mongo:latest
       - echo Writing image definitions file...
 artifacts:
     files: images.json
